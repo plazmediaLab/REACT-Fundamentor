@@ -1,20 +1,30 @@
-// 1.- Inportamos [React] desde la librería npm [react].
-import React from 'react';
-// 2.- Inportamos [ReactDOM] desde la librería npm [react].
-// Esta librería es la encargada de renderizar los elementos en el DOM.
-import ReactDOM from 'react-dom'
+import React from "react";
+import ReactDOM from "react-dom";
 
-// 3.- Creamos nuestro elemento a renderizar
-const App = <h1>Hello Worl!!!</h1>;
-// Babel será el encargado de compilar el elemento.
-// const App = React.createElement("h1", null, "Hello Worl!!!");
+// Variables que serán inyectadas a traves deexpreciones JSX
+let name = "Evan Alain";
+let user = {
+  name: "Adrian",
+  age: 29,
+  country: "México"
+};
+function getInfo(data_Arg) {
+  return `Hola desde una función, soy ${data_Arg.name}, te doy la bienvenida a ${data_Arg.country}, tengo
+  ${data_Arg.age} años.`;
+}
+// 1.- Primer ejemplo con variable simple
+// const App = <h1>Hola a nuestra primera app con React, mi nombre es {name}</h1>;
 
-// 4.- Accedemos al elemento HTML del DOM en el cual renderizaremos nuetsra app.
-// -> ./public/index.html
-const root = document.getElementById('root');
+// 2.- Inyectar parametros desde un objeto.
+// const App = (
+//   <h2>
+//     Hola soy {user.name}, te doy la bienvenida a {user.country}, tengo
+//     {user.age} años.
+//   </h2>
+// );
 
-// 5.- Mandamos renderizar nuestro elemento a traves del metodo [.render()].
-// Este recibe dos parametros principales.
-//    1{ Elemento a renderizar } 
-//    2{ Elemento real del DOM en donde se rendirazara } 
+// 3.- Inyectar parametros desde una función.
+const App = <h2>{getInfo(user)}</h2>;
+const root = document.getElementById("root");
+
 ReactDOM.render(App, root);
