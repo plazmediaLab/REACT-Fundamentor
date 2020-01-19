@@ -1,30 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-// Variables que serán inyectadas a traves deexpreciones JSX
-let name = "Evan Alain";
-let user = {
-  name: "Adrian",
-  age: 29,
-  country: "México"
-};
-function getInfo(data_Arg) {
-  return `Hola desde una función, soy ${data_Arg.name}, te doy la bienvenida a ${data_Arg.country}, tengo
-  ${data_Arg.age} años.`;
-}
-// 1.- Primer ejemplo con variable simple
-// const App = <h1>Hola a nuestra primera app con React, mi nombre es {name}</h1>;
-
-// 2.- Inyectar parametros desde un objeto.
-// const App = (
-//   <h2>
-//     Hola soy {user.name}, te doy la bienvenida a {user.country}, tengo
-//     {user.age} años.
-//   </h2>
-// );
-
-// 3.- Inyectar parametros desde una función.
-const App = <h2>{getInfo(user)}</h2>;
+// Elemento físico en el DOM.
 const root = document.getElementById("root");
 
-ReactDOM.render(App, root);
+let titulo = 'Docena de manzanas'
+
+// 1.- Estructura de nuestro componente alojado en un función.
+const FruitCard = () => (
+  <div>
+    <h3>Titulo: { titulo }</h3>
+    <hr />
+    <p>Descripción...</p>
+  </div>
+);
+
+// 2.- Componente [App] que renderizaremos en el DOM
+// Llamremos a nuestro componente tomandolo como una etiqueta HTML
+const App = () => (
+  <div>
+    <FruitCard></FruitCard>
+  </div>
+);
+
+// 3.- Para poder mandar nuestro componente al DOM
+// Lo tenemos que llamar como parametro, de manera a una etiqueta.
+ReactDOM.render(<App />, root);
