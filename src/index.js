@@ -1,36 +1,81 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-// [PROPS] -> Se puede tomar las props como tubos por los que alimentarmos a nuestros componentes.
+/*=================================================================================
+*	  Elemento físico en el DOM  */
+const root = document.getElementById('root');
 
+/*=================================================================================
+*	 NOTA: La principal diferencia entre componentes construidos a partir de una función y una clase.
+*  es que los componentes en clase, se puden modificar y actualizar a ellos mismos
+*  ya que poseen un [estado].
+* --------------------------------------------------------------------------------*/
 
-// Elemento físico en el DOM.
-const root = document.getElementById("root");
-//Valor para un template String
-let name = 'Evan Alain';
+/*=================================================================================
+*	 ESTADO: representa el momento actual del componente, si el estado canbia el componente tambíen debería hacerlo.
+* --------------------------------------------------------------------------------*/
 
-// 1.- Se recibirán los PROPS a nuestro componente a traves de un paramero.
-const FruitCard = (props) => (
-  <div>
-    <h3>Titulo: { props.name }</h3>
-    <p>Descripción...</p>
-    <p>Precio: ${props.price}</p>
-    <hr />
-  </div>
-);
+/*=================================================================================
+*	 Componentes creados a partir de una clase extendida de [React.Component]
+*	 Utilizaremos su parametro [render()], retornando nuestra estructura JSX.
+*	 Lor PROPS en este metodo los recibiremos a traves de la palabra reseravada [this].
+* --------------------------------------------------------------------------------*/
+ 
+class ProductsGroup extends React.Component{
+  /*=================================================================================
+  *	 El metodo [constructor] se inicializa en el momento que se crea el componente.
+  *	 Dentro de este es donde se establece el estado del componente.
+  * --------------------------------------------------------------------------------*/ 
+  constructor(){
+    super();
 
-// 2.- Los PROPS llegan al componente a traves de propiedades, recibiendo el valor.
-// --- Para valores de tipo [string], son requeridas las comillas simples o dobles, quedando opcionales las llaves.
-// --- Para valores de tipo [num], es requerido las llaves para introducir el valor.
-// --- Para los Template String, son requeridas las llaves.
+    /*=================================================================================
+    *	 Propiedades establecidas en el estado del componente.
+    * --------------------------------------------------------------------------------*/
+    this.state = {
+      quantity: 0
+    }
+  }
+
+  render(){
+    return (
+      <div>
+        <h2>Title:{ this.props.name }</h2>
+        <p>Description...</p>
+        <p>${ this.props.price }</p>
+        <p>Quantity: { this.state.quantity }</p>
+        <button 
+          onClick={()=>{
+              // this.state.quantity ++;
+              // this.forceUpdate();
+              /*=================================================================================
+              *	 No es buena practica utilizar el metodo [this.forceUpdate()], aún que
+              *	 esta disponible para su utilización.
+              * --------------------------------------------------------------------------------*/
+
+              /*=================================================================================
+              *	 [this.setState()] con este metodo podemos actualizar el estado de nuestro componente
+              * --------------------------------------------------------------------------------*/
+              this.setState({quantity: this.state.quantity + 1})
+            }
+          }
+        >Add</button>
+        <hr/>
+      </div>
+    )
+  }
+}
+
+/*=================================================================================
+*	 Elemento a renderizar en el DOM  */
 const App = () => (
   <div>
-    <FruitCard name='Manzana' price={3.50}></FruitCard>
-    <FruitCard name="Fresa" price={2.99}></FruitCard>
-    <FruitCard name={'Mango'} price={5.99}></FruitCard>
-    <FruitCard name={`Mi nombre es ${ name }`} price={999.99}></FruitCard>
+    <ProductsGroup name={' Mac 21\"'} price={18000.99}></ProductsGroup>
+    <ProductsGroup name={' iWatch'} price={6000.99}></ProductsGroup>
+    <ProductsGroup name={' iPhone'} price={25000.99}></ProductsGroup>
   </div>
 );
 
-
+/*=================================================================================
+*	 Metodo llamado para renderizar el elemento en el DOM */
 ReactDOM.render(<App />, root);
