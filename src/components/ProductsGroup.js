@@ -3,8 +3,8 @@
 import React from 'react';
 
 /*=================================================================================
-*	 Importación de archivo CSS  */
-import './ProductsGroup.css';
+*	 Importación de modulo CSS  */
+import styles from './ProductsGroup.module.css';
 
 class ProductsGroup extends React.Component {
 
@@ -28,25 +28,18 @@ class ProductsGroup extends React.Component {
   render() {
 
     /*=================================================================================
-    *	 Podemos separar las clases CSS en archivos independientes para cada componente
-    *  como en cualquier proyecto web, con la diferencia de que en react tenemos que 
-    *  importar este documento CSS en cado de estar dentro de nuestro proyecto, para 
-    *  así ser compilado por webpack.
+    *	 A diferencia de las clases habitualos de CSS, en los modulos se manejarán como
+    *  parte de un objeto, de modo a su propiedad
+    *  EJEMPLO: styles.ProductsGroup
     * --------------------------------------------------------------------------------*/
     /*=================================================================================
-    *	 Una ves tenemos acceso a este archivo, lo podemos agregar a la estructura de 
-    *  nuestro componente, pero no podemos utilizar la palabra reserbada [class], como
-    *  lo hariamos en HTML, por lo tanto tenemos que hacerlo a tra ves de la palabra
-    *  reservada [className].
+    *	 En caso de ser referencias simples o a modo CamelCase, se puede llamar directamente
+    *  de utilizar guión medio [-], es necesario la utilización de corchetes a modo de array
+    *  EJEMPLO: styles['ProductsGroup-active']
     * --------------------------------------------------------------------------------*/
-    /*=================================================================================
-    *	 Igualmente se puede implementar logíca intermedia en para el manejo de estas clases  */
-    // const dinamicClassCss = this.state.quantity > 0 ? 'ProductsGroupActive' : 'ProductsGroup';
-    
-    /*=================================================================================
-    *	 Un metodo para agregar mas de una clase utilizando logíca, es utilizar template string  */
-    const hasQuantity = this.state.quantity > 0
-    const dinamicClassCss = `ProductsGroup ${hasQuantity ? 'ProductsGroup-active' : ''}`;
+    const hasQuantity = this.state.quantity > 0;
+    const classActive = hasQuantity ? styles['ProductsGroup-active'] : '';
+    const dinamicClassCss = styles.ProductsGroup + ' ' + classActive;
 
     return (
       /*=================================================================================
