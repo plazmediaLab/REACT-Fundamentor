@@ -22,8 +22,35 @@ class ProductsGroup extends React.Component {
   /*=================================================================================
   *	 Metodo que renderizara la estructura del componente  */
   render() {
+
+    /*=================================================================================
+    *	 Los estilos dentro de nuestro componente los podemos declarar en línea dentro
+    *  de la estructura JSX, pero esto lo volvera poco sostonible a futuro, por lo que
+    *  otro metodo es es declararlo en una constante a modo de objeto con las propiedades
+    *  y su respectivo valor  */
+    /*=================================================================================
+    *	 Para esto en el nombre de las propiedades implementaremos CamelCase, ya que 
+    *  utilizar guin medio, como es usual en CSS no funcionara  */
+
+    /*=================================================================================
+    *	 Igualmente dentro de estas configuraciones podemos implementar lógica de programación
+    *  Ya sea directamente, declarada o a modo de constantes y (0) varibles
+    *  como en el siguiente caso con una condicional terciaria.  */
+    const dinamicData = this.state.quantity > 0;
+
+    const style = {
+      padding: '2em',
+      border: '1px solid #d0d0d0',
+      borderRadius: '1em',
+      marginBottom: '1em',
+      boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.15)',
+      transition: 'all 400ms ease-out',
+      background: dinamicData ? 'linear-gradient(0deg, rgb(32,124,229), rgb(73,155,234)': '#fff',
+      color: dinamicData ? '#fff' : '#000',
+    }
+
     return (
-      <div>
+      <div style={style}>
         <h2>Title:{this.props.name}</h2>
         <p>Description...</p>
         <p>${this.props.price}</p>
@@ -31,7 +58,9 @@ class ProductsGroup extends React.Component {
         <button onClick={this.addQuantity}> + </button>
         <button onClick={this.subtractQuantity}> - </button>
         <button onClick={this.cleanQuantity}>Clean</button>
-        <hr />
+        <p>
+          Total:{ this.props.price * this.state.quantity }
+        </p>
       </div>
     );
   }
